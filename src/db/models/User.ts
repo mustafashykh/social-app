@@ -1,4 +1,4 @@
-import { IUser } from "@shared/interfaces";
+import { IUser } from "@interfaces";
 import mongoose, { Model, Schema } from "mongoose";
 
 /**

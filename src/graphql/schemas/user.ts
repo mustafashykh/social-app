@@ -7,8 +7,4 @@ export default gql`
     lastName: String
     email: String
   }
-
-  type Query {
-    users: [User!]!
-  }
 `

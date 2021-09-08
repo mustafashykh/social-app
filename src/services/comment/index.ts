@@ -1,4 +1,4 @@
-import { IComment, ICommentQuery } from "@shared/interfaces";
+import { IComment, ICommentQuery } from "@interfaces";
 import { Comment } from '../../db/models';
 import { Model } from "mongoose";
 import { Execption } from "../../shared/models";

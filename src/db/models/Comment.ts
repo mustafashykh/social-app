@@ -1,4 +1,4 @@
-import { IComment } from "@shared/interfaces";
+import { IComment } from "@interfaces";
 import mongoose, { Model, Schema } from "mongoose";
 
 /**

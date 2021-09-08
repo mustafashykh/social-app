@@ -1,4 +1,4 @@
-import { IUser } from "@shared/interfaces";
+import { IUser } from "@interfaces";
 import { User } from '../../db/models';
 import { Model } from "mongoose";
 import { Execption } from "../../shared/models";

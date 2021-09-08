@@ -1,7 +1,8 @@
 import CommentService from "../../services/comment";
-import { IComment, ICommentQuery, IUser } from "@shared/interfaces";
+import { IComment, ICommentQuery, IUser } from "@interfaces";
 import { Execption } from "../../shared/models";
 import UserService from "../../services/user";
+import { CommentValidator } from '../../shared/validators';
 import mongoose from "mongoose";
 
 const ObjectId = mongoose.Types.ObjectId;
@@ -9,10 +10,12 @@ const ObjectId = mongoose.Types.ObjectId;
 export default class CommentResolver {
   private _commentService: CommentService;
   private _userService: UserService;
+  private _commentValidator: CommentValidator;
 
   constructor() {
     this._commentService = new CommentService();
     this._userService = new UserService();
+    this._commentValidator = new CommentValidator();
   }
 
   register() {
@@ -56,6 +59,9 @@ export default class CommentResolver {
             if (!context.user) {
               throw new Execption({}, "UnAutherized", 401);
             }
+            
+            const { error } = this._commentValidator.addCommnet(args);
+            if (error) throw new Execption({}, error.details[0].message, 400);
             
             const comment: IComment = await this._commentService.createComment({
               ...args,

@@ -1,4 +1,4 @@
-import { ILogin, IUser, IAuthResponse } from "@shared/interfaces";
+import { ILogin, IUser, IAuthResponse } from "@interfaces";
 import { DecodedToken, Execption } from "../../shared/models";
 import { compareSync } from "bcrypt";
 import UserService from "@services/user";
@@ -17,7 +17,7 @@ export default class AuthService {
       const user: IUser = await this._userService.getUserByEmail($credentails.email);
       if (!user) throw new Execption({}, "Invalid Email or Password", 400);
 
-      if (compareSync($credentails.password as string, user.password as string,)) {
+      if (compareSync($credentails.password as string, user.password as string)) {
         const token:String = sign(
           { 
             email: user.email, 

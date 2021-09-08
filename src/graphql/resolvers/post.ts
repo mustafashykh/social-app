@@ -1,9 +1,10 @@
 import PostService from "../../services/post";
-import { IComment, ICommentQuery, IPost, IPostQuery, IUser } from "@shared/interfaces";
+import { IComment, ICommentQuery, IPost, IPostQuery, IUser } from "@interfaces";
 import { Execption } from "../../shared/models";
 import UserService from "../../services/user";
 import mongoose from "mongoose";
 import CommentService from "../../services/comment";
+import { PostValidator } from "../../shared/validators";
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -11,11 +12,13 @@ export default class PostResolver {
   private _postService: PostService;
   private _userService: UserService;
   private _commentService: CommentService;
+  private _postValidator: PostValidator;
 
   constructor() {
     this._postService = new PostService();
     this._userService = new UserService();
     this._commentService = new CommentService();
+    this._postValidator = new PostValidator();
   }
 
   register() {
@@ -82,6 +85,9 @@ export default class PostResolver {
             if (!context.user) {
               throw new Execption({}, "UnAutherized", 401);
             }
+
+            const { error } = this._postValidator.addPost(args);
+            if (error) throw new Execption({}, error.details[0].message, 400);
 
             const post: IPost = await this._postService.createPost({
               ...args,

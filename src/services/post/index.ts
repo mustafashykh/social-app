@@ -1,4 +1,4 @@
-import { IPost, IPostQuery } from "@shared/interfaces";
+import { IPost, IPostQuery } from "@interfaces";
 import { Post } from '../../db/models';
 import { Model } from "mongoose";
 import { Execption } from "../../shared/models";

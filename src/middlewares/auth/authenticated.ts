@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { verify } from 'jsonwebtoken';
-import { DecodedToken } from "@shared/models";
+import { DecodedToken } from "@models";
 
 export async function isAuthenticated(req: Request, res: Response, next: Function) {
    const { authorization } = req.headers

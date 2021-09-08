@@ -1,4 +1,4 @@
-import { IPost } from "@shared/interfaces";
+import { IPost } from "@interfaces";
 import mongoose, { Model, Schema } from "mongoose";
 
 /**
