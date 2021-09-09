@@ -7,6 +7,8 @@ import { Application } from 'express';
 import typeDefs from './schemas';
 import { verify } from 'jsonwebtoken';
 import { DecodedToken } from '@models';
+import UserService from "../services/user";
+import IUser from "@interfaces/IUser";
 
 
 export const setup = async (app: Application, httpServer: Server) => {
@@ -19,7 +21,7 @@ export const setup = async (app: Application, httpServer: Server) => {
     },  
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     
-    context: ({ req }) => {
+    context: async ({ req }) => {
       try {
         const token: string = req.headers.authorization || '';
   
@@ -33,8 +35,11 @@ export const setup = async (app: Application, httpServer: Server) => {
 
           const _token = split[1]
 
-          const user: DecodedToken = verify(_token, `${process.env.SECRET}`) as DecodedToken;
-          if (user) return { user };
+          const _user: DecodedToken = verify(_token, `${process.env.SECRET}`) as DecodedToken
+          if (_user) {
+            const user: IUser = await (new UserService).getUserById(_user._id);
+            if (user) return { user }
+          };
         }
   
         return {};

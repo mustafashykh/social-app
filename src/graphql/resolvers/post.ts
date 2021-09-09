@@ -86,12 +86,12 @@ export default class PostResolver {
               throw new Execption({}, "UnAutherized", 401);
             }
 
-            const { error } = this._postValidator.addPost({...args, user: context.user._id});
+            const { error } = this._postValidator.addPost({...args, user: `${context.user._id}`});
             if (error) throw new Execption({}, error.details[0].message, 400);
 
             const post: IPost = await this._postService.createPost({
               ...args,
-              user: context.user._id,
+              user: `${context.user._id}`,
             });
             if (!post) throw new Execption({}, "Something went Wrong", 500);
 

@@ -60,7 +60,7 @@ export default class CommentResolver {
               throw new Execption({}, "UnAutherized", 401);
             }
             
-            const { error } = this._commentValidator.addCommnet({...args, user: context.user});
+            const { error } = this._commentValidator.addCommnet({...args, user: context.user._id});
             if (error) throw new Execption({}, error.details[0].message, 400);
             
             const comment: IComment = await this._commentService.createComment({
