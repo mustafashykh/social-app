@@ -1,7 +1,6 @@
 import { IComment } from "@interfaces";
+import { MONGOID_REGEX } from "../constants";
 import Joi from "joi";
-const objectId = require("joi-objectid")(Joi);
-
 
 
 export default class CommentValidator {
@@ -14,8 +13,8 @@ export default class CommentValidator {
    */
   addCommnet = (values: IComment) => {
     const schema = Joi.object({
-      post: objectId.required(),
-      user: objectId.required(),
+      post: Joi.string().regex(MONGOID_REGEX).required(),
+      user: Joi.string().regex(MONGOID_REGEX).required(),
       body: Joi.string().min(1).max(100).required()
     })
     return schema.validate(values)

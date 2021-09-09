@@ -1,4 +1,4 @@
-import { IComment, ILogin, IUser } from "@interfaces";
+import { ILogin, IUser } from "@interfaces";
 import Joi from "joi";
 
 

@@ -1,6 +1,6 @@
 import { IPost } from "@interfaces";
+import { MONGOID_REGEX } from "../constants";
 import Joi from "joi";
-const objectId = require("joi-objectid")(Joi);
 
 
 export default class PostValidator {
@@ -17,7 +17,7 @@ export default class PostValidator {
       subtitle: Joi.string().min(3).max(100).optional(),
       body: Joi.string().min(15).max(500).required(),
       banner: Joi.string().uri().optional(),
-      user: objectId.required(),
+      user: Joi.string().regex(MONGOID_REGEX).required()
     })
     return schema.validate(values)
   }
