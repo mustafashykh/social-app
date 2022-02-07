@@ -52,7 +52,7 @@ export const setup = async (app: Application, httpServer: Server) => {
 
   await server.start();
   server.applyMiddleware({ app });
-  await new Promise((resolve: any) => httpServer.listen({ port: 4000 }, resolve));
+  await new Promise((resolve: any) => httpServer.listen({ port: process.env.NODE_PORT || 9000 }, resolve));
   console.log(`🚀 Server ready at http://localhost:4000`);
   console.log(`🚀 GrpahQL Server ready at http://localhost:4000${server.graphqlPath}`);
 
